@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spiral Reveal - Gifler.js</title>
+  <script src="https://unpkg.com/gifler@0.1.0/gifler.min.js"></script>
+  <style>
+    body { 
+      background: #111; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      height: 100vh; margin: 0;
+    }
+    .container {
+      position: relative;
+      width: 128px;
+      height: 128px;
+    }
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+    }
+    #maskCanvas {
+      display: none; /* Hidden mask canvas */
+    }
+    #bugCanvas {
+      mix-blend-mode: screen; /* Ensures purple bug/trail visibility, hides white */
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <canvas id="bgCanvas" width="128" height="128"></canvas>
+  <canvas id="clearCanvas" width="128" height="128"></canvas>
+  <canvas id="maskCanvas" width="128" height="128"></canvas>
+  <canvas id="bugCanvas" width="128" height="128"></canvas>
+</div>
+
+<script>
+  // Helper to animate GIF into canvas
+  function animateGif(src, canvas, onFrame) {
+    gifler(src).get((anim) => {
+      anim.animateInCanvas(canvas);
+      anim.onDrawFrame = (ctx, frame) => {
+        if (onFrame) onFrame(ctx, frame);
+      };
+    });
+  }
+
+  // Animate background blurry GIF
+  animateGif('test-progress.gif', document.getElementById('bgCanvas'));
+
+  // Prepare contexts
+  const clearCtx = document.getElementById('clearCanvas').getContext('2d');
+  const maskCtx = document.getElementById('maskCanvas').getContext('2d');
+
+  // Animate mask GIF (hidden)
+  animateGif('preview-mask.gif', document.getElementById('maskCanvas'));
+
+  // Animate clear GIF with masking
+  animateGif('test-clear.gif', document.getElementById('clearCanvas'), (ctx, frame) => {
+    const maskData = maskCtx.getImageData(0, 0, 128, 128);
+    const frameData = ctx.getImageData(0, 0, 128, 128);
+
+    // Apply mask alpha channel
+    for (let i = 0; i < frameData.data.length; i += 4) {
+      frameData.data[i + 3] = maskData.data[i + 3];
+    }
+    ctx.putImageData(frameData, 0, 0);
+  });
+
+  // Animate bug/trail GIF on top with blend mode
+  animateGif('preview-mask.gif', document.getElementById('bugCanvas'), (ctx, frame) => {
+    const imgData = ctx.getImageData(0, 0, 128, 128);
+
+    // Remove white pixels (makes white transparent)
+    for (let i = 0; i < imgData.data.length; i += 4) {
+      const [r, g, b] = imgData.data.slice(i, i+3);
+      if (r > 240 && g > 240 && b > 240) {
+        imgData.data[i + 3] = 0; // fully transparent
+      }
+    }
+    ctx.putImageData(imgData, 0, 0);
+  });
+</script>
+</body>
+</html>
+
