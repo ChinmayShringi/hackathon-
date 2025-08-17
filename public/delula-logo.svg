@@ -1,0 +1,5 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <text x="10" y="25" font-family="Inter, sans-serif" font-size="24" font-weight="700" fill="#ffffff">delula</text>
+  <circle cx="100" cy="20" r="8" fill="#3b82f6" opacity="0.8"/>
+  <circle cx="100" cy="20" r="4" fill="#ffffff"/>
+</svg>
