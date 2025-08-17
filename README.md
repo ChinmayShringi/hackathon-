@@ -1,118 +1,141 @@
 # Coinbase CDP Integration Demo
 
-A React TypeScript application demonstrating Coinbase CDP (Coinbase Developer Platform) integration with dynamic OAuth authentication and onramp functionality.
+A React TypeScript frontend application demonstrating Coinbase CDP (Coinbase Developer Platform) integration concepts for dynamic OAuth authentication and onramp functionality.
 
 ## Features
 
-- **Coinbase CDP Onramp Integration** - Direct fiat-to-crypto onramp using Coinbase Pay
-- **Dynamic OAuth Authentication** - Seamless Coinbase wallet connection
-- **Session Token Management** - Secure JWT-based API authentication
-- **Payment Processing** - Credit purchase system with multiple payment methods
-- **Modern React Frontend** - TypeScript, Tailwind CSS, shadcn/ui components
+- **Modern React Frontend** - TypeScript, Vite, Tailwind CSS, shadcn/ui components
+- **Coinbase Payment UI** - Interactive payment modals and pricing components
+- **Authentication Flow** - OAuth login modals and wallet connection interfaces
+- **Responsive Design** - Mobile-first design with modern UI patterns
+- **TypeScript Safety** - Full type safety throughout the application
 
 ## Quick Start
 
 ### Prerequisites
 - Node.js 22.12+
-- Coinbase Developer Platform account
-- Environment variables configured
+- npm 10+
 
 ### Installation
 ```bash
 # Clone the repository
-git clone <repository-url>
-cd hackathon
+git clone https://github.com/scryptedai/hackathon-eth-global.git
+cd hackathon-eth-global
 
 # Install dependencies
 npm install
-
-# Set up environment variables
-cp coinbase.env.example .env
-# Edit .env with your CDP credentials
 
 # Start development server
 npm run dev
 ```
 
-### Environment Setup
+The application will be available at `http://localhost:5173`
 
-Configure these environment variables:
+## Available Scripts
 
 ```bash
-# Coinbase CDP Configuration
-CDP_ENV=sandbox
-CDP_KEY_ID=ak_sandbox_xxxxx
-CDP_KEY_SECRET=your_private_key_here
-CDP_DESTINATION_ADDRESS=your_wallet_address
-CDP_DESTINATION_NETWORK=base
-
-# Coinbase OAuth Configuration
-COINBASE_CLIENT_ID=your_client_id
-COINBASE_CLIENT_SECRET=your_client_secret
-COINBASE_REDIRECT_URI=http://localhost:3000/auth/callback
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run preview    # Preview production build
+npm run check      # TypeScript type checking
 ```
 
-## Core Components
+## Project Structure
 
-### CDP Integration
-- **Session Token Generation** - Creates secure session tokens for Coinbase Pay
-- **Onramp Functionality** - Direct integration with Coinbase onramp services
-- **Multi-Payment Support** - Apple Pay, Google Pay, credit cards, crypto
-
-### OAuth Authentication
-- **Wallet Connection** - Connect user's Coinbase wallet
-- **Token Management** - Secure access token handling
-- **Profile Access** - Read user wallet information
-
-### Frontend Components
-- `coinbase-payment-modal.tsx` - Payment interface
-- `auth-modal-new.tsx` - Authentication modal
-- `pricing-section.tsx` - Credit packages with CDP integration
-
-## API Endpoints
-
-```typescript
-POST /api/cdp/session-token    # Generate CDP session token
-POST /api/cdp/onramp          # Create onramp transaction
-POST /api/oauth/token         # OAuth token exchange
-GET  /api/oauth/profile       # Get user profile
 ```
+├── client/
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ui/              # Reusable UI components (shadcn/ui)
+│   │   │   ├── auth-modal-new.tsx       # Authentication modal
+│   │   │   ├── coinbase-payment-modal.tsx  # Payment interface
+│   │   │   ├── pricing-section.tsx      # Pricing with CDP integration
+│   │   │   └── ...
+│   │   ├── pages/               # Application pages
+│   │   ├── hooks/               # Custom React hooks
+│   │   ├── lib/                 # Utility functions
+│   │   └── contexts/            # React contexts
+│   └── index.html
+├── shared/                      # Shared types and schemas
+├── scripts/                     # Development scripts
+└── public/                      # Static assets
+```
+
+## Key Components
+
+### Authentication & Payments
+- **`auth-modal-new.tsx`** - Modern authentication modal with Coinbase integration
+- **`coinbase-payment-modal.tsx`** - Payment interface for CDP onramp
+- **`pricing-section.tsx`** - Credit packages with payment integration
+
+### UI Components
+- **`ui/`** - Complete shadcn/ui component library
+- **Responsive Design** - Mobile-first approach with Tailwind CSS
+- **Modern Styling** - Dark/light mode support, animations, and interactions
+
+## Coinbase Integration Concepts
+
+This demo showcases the frontend patterns for:
+
+1. **CDP Session Token Flow** - How to structure session token requests
+2. **OAuth Integration** - User authentication and wallet connection flows  
+3. **Payment Processing** - Onramp integration with multiple payment methods
+4. **Error Handling** - User-friendly error states and loading indicators
+
+## Environment Configuration
+
+The application includes example configurations for:
+
+- `coinbase.env.example` - Coinbase CDP credentials template
+- `coinbase-oauth.env.example` - OAuth configuration template
 
 ## Documentation
 
-- `CDP_SETUP_GUIDE.md` - Complete CDP setup instructions
-- `COINBASE_INTEGRATION.md` - Integration overview
-- `COINBASE_OAUTH_SETUP.md` - OAuth configuration guide
+- `CDP_SETUP_GUIDE.md` - Complete CDP integration setup guide
+- `COINBASE_INTEGRATION.md` - Integration overview and concepts
+- `COINBASE_OAUTH_SETUP.md` - OAuth configuration instructions
+- `COINBASE_ONRAMP_SETUP.md` - Onramp setup documentation
 
-## Testing
+## Development Scripts
 
 ```bash
-# Test CDP integration
-npm run test:cdp
-
-# Test OAuth flow  
-npm run test:oauth
-
-# Run all tests
-npm test
+npm run test:cdp          # Test CDP integration concepts
+npm run test:oauth        # Test OAuth flow patterns  
+npm run debug:auth        # Debug authentication flows
+npm run debug:session     # Debug session management
+npm run generate:webhook  # Generate webhook secrets
 ```
 
-## Architecture
+## Technology Stack
 
 - **Frontend**: React 18 + TypeScript + Vite
 - **Styling**: Tailwind CSS + shadcn/ui components  
 - **State Management**: React Context + hooks
-- **Authentication**: Coinbase OAuth 2.0
-- **Payments**: Coinbase CDP Onramp
+- **Build Tool**: Vite with hot module replacement
+- **Type Safety**: Full TypeScript coverage
+
+## Architecture
+
+This is a **frontend-only demonstration** that showcases:
+
+- Modern React patterns for payment integrations
+- TypeScript interfaces for Coinbase CDP APIs
+- Responsive UI components for crypto payments
+- Authentication flow implementations
+- Error handling and loading states
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Test CDP integration
+4. Test the frontend builds successfully
 5. Submit a pull request
 
 ## License
 
 MIT License
+
+---
+
+**Note**: This is a frontend demonstration project showcasing UI patterns and integration concepts for Coinbase CDP. For production implementation, you'll need to implement the corresponding backend services following Coinbase's API documentation.

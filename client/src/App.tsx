@@ -9,32 +9,16 @@ import {
 import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
 
 import AlphaHome from "@/pages/alpha-home";
-import AlphaMyMakes from "@/pages/alpha-my-makes";
-import AlphaAssetViewer from "@/pages/alpha-asset-viewer";
 import AlphaCredits from "@/pages/alpha-credits";
 import Account from "@/pages/account";
-import ThumbnailTest from "@/pages/thumbnail-test";
-import KlingTest from "@/pages/kling-test";
 import Landing from "@/pages/landing";
 import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
-import Gallery from "@/pages/gallery";
-import MyGallery from "@/pages/my-gallery";
-import Queue from "@/pages/queue";
-import Tutorials from "@/pages/tutorials";
-import RecipeDetail from "@/pages/recipe-detail";
-import CreateRecipe from "@/pages/create-recipe";
-import AssetViewer from "@/pages/asset-viewer";
 import TermsOfService from "@/pages/terms-of-service";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import PaymentSuccess from "@/pages/payment-success";
 import AdminLogin from "@/pages/admin-login";
-import Admin from "@/pages/admin";
-import AdminRecipeTagIcons from "@/pages/admin-recipe-tag-icons";
-import AdminBacklogMaintenance from "@/pages/admin-backlog-maintenance";
 import NotFound from "@/pages/not-found";
-import MediaLibrary from "@/pages/media-library";
-import UploadDemoPage from "@/pages/upload-demo";
 
 function AppRoutes() {
   // Use build-time environment variable for deployment type
