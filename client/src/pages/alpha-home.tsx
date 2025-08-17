@@ -1,15 +1,6 @@
 import AlphaHeader from "@/components/alpha-header";
-import AnimatedTaglines from "@/components/animated-taglines";
-import CategorySection, { getCategoryIcon } from "@/components/category-section";
-import ComingSoonRecipeCard from "@/components/coming-soon-recipe-card";
 import { CreditCounter } from "@/components/credit-counter";
-import DelulaDifferenceSection from "@/components/delula-difference-section";
-import InstantMakeModal from "@/components/instant-make-modal";
-import LaunchFeaturesSection from "@/components/launch-features-section";
 import Metadata from "@/components/metadata";
-import PreviewPill from "@/components/preview-pill";
-import RecipeForm from "@/components/recipe-form";
-import ServicePartnersSection from "@/components/service-partners-section";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

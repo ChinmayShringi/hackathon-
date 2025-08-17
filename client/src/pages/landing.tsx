@@ -1,15 +1,10 @@
-import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Play, Zap, ArrowRight, Star, Users, Sparkles } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import Navigation from "@/components/navigation";
-import HeroCarousel from "@/components/hero-carousel";
-
-import RecipeDiscovery from "@/components/recipe-discovery";
-import GalleryItem from "@/components/gallery-item";
-import MediaPreviewModal from "@/components/media-preview-modal";
 import Metadata from "@/components/metadata";
 
 const SAMPLE_GALLERY = [
