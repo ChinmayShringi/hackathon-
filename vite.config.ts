@@ -8,14 +8,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      "@": path.resolve(process.cwd(), "client", "src"),
-      "@shared": path.resolve(process.cwd(), "shared"),
-      "@assets": path.resolve(process.cwd(), "client", "src", "assets"),
+      "@": path.resolve(__dirname, "client", "src"),
+      "@shared": path.resolve(__dirname, "shared"),
+      "@assets": path.resolve(__dirname, "client", "src", "assets"),
     },
   },
-  root: path.resolve(process.cwd(), "client"),
+  root: path.resolve(__dirname, "client"),
   build: {
-    outDir: path.resolve(process.cwd(), "dist/public"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
   },
   define: {
@@ -27,10 +27,10 @@ export default defineConfig({
   // When used with middleware mode, these settings are overridden
   server: {
     host: '0.0.0.0', // Listen on all interfaces, not just localhost
-    port: 5232,
+    port: 5173,
     strictPort: true,
     hmr: {
-      port: 5232,
+      port: 5173,
       host: 'localhost'
     },
     fs: {
