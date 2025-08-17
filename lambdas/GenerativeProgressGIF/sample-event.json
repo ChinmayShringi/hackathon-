@@ -1,0 +1,7 @@
+{
+  "remote_url": "https://example.com/animation.gif",
+  "bucket": "your-progress-gif-bucket",
+  "key": "progress/loading.gif",
+  "reveal_duration_ms": 10000,
+  "color_count": 16
+} 

@@ -1,0 +1,7 @@
+{
+  "video_url": "https://cdn.delu.la/test/xzdJXToBseHZj_HUw7szI_output.mp4",
+  "frame_requests": "0, -1, 50%, 90%",
+  "destination_bucket": "delula-media-prod",
+  "output_prefix": "test",
+  "allow_partial_completion": true
+}
