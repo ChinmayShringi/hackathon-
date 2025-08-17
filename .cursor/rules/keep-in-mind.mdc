@@ -1,0 +1,97 @@
+---
+alwaysApply: true
+---
+
+# Delula Project Critical Guidelines
+
+## ⚠️ PRODUCTION SAFETY
+- **WARNING: You are operating on a live production database**
+- **MUST NOT do destructive commands automatically** - stop and ask for explicit permission even if implied in earlier requests
+- **MUST include dotenv before any other imports** focused on the root .env (unless in sub-projects like /lambdas)
+
+## 🚀 Server Configuration
+- **Server Port: 5232** (not 3000)
+- **Node.js Version: >= 22.12** required
+- Use nvm to manage Node versions: `nvm list` to see available, `nvm use 22.12` to switch
+- Always stop server before switching Node versions, then restart after switching
+
+## 🗄️ Database Operations
+- **Use 'npm run db:push'** to properly use drizzle migrations once created
+- **Use 'pg' package with Pool for database connections** - NOT 'postgres' package
+- **Database connection pattern:**
+  ```typescript
+  import { Pool } from 'pg';
+  import { drizzle } from 'drizzle-orm/node-postgres';
+  import { config } from 'dotenv';
+  
+  config(); // Load environment variables first
+  
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+  const db = drizzle({ client: pool, schema });
+  
+  // Use pool.query() for raw SQL queries
+  const result = await pool.query('SELECT * FROM users LIMIT 5');
+  console.log(result.rows);
+  
+  // Use db.select() for Drizzle ORM queries
+  const users = await db.select().from(users).limit(5);
+  
+  // Always close the pool when done
+  await pool.end();
+  ```
+- **Expect key constraints** and resolve them properly
+- Use Drizzle ORM for all database operations
+- Follow existing migration patterns in ./migrations/
+- Use shared schema definitions from ./shared/schema.ts
+- Implement proper error handling for database connections and queries
+- WARNING: There is currently an error due to a mismatch in table expectations from the project recorded schema.ts versus the actual production db. This is not recoverable at this time. RECOMMENDATION: write scripts to change the db.
+
+## 🔧 Environment & Scripts
+- **Root project contains .env** with these variables:
+  - DATABASE_URL, PGDATABASE, PGHOST, PGPORT, PGUSER, PGPASSWORD
+  - SITE_DEPLOYMENT_TYPE, OPENAI_API_KEY, FAL_KEY, PINECONE_API_KEY
+  - AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_REGION, AWS_S3_BUCKET
+  - AWS_MAGICVIDIO_ACCESS_KEY_ID, AWS_MAGICVIDIO_SECRET_ACCESS_KEY, AWS_MAGICVIDIO_REGION
+  - AWS_DELULA_ACCESS_KEY, AWS_DELULA_SECRET_ACCESS_KEY
+  - SUPABASE_ANON_KEY, SUPABASE_URL, DEV_BOUND_GUEST_ID, DISABLE_VECTOR_EMBEDDINGS
+- **Place all script files as TSX (.tsx)** in ./scripts directory (not shell scripts)
+- **Write scripts in TypeScript** and run with tsx package
+- **May write utility TypeScript scripts** to quickly execute and confirm/test actions
+- **npx tsx** is needed to run typescript files from the CLI.
+
+## 🎨 Frontend Development
+- Use React with TypeScript for all frontend components
+- **MUST NOT use JSX unless absolutely necessary. Always choose TypeScript when possible.**
+- Follow existing component structure in ./client/src/components/
+- Use UI components from ./client/src/components/ui/ for consistency
+- Implement proper TypeScript types for all props and state
+- Use proper error boundaries in React components
+
+## ⚙️ Backend Development
+- Use Express.js with TypeScript for the server
+- Follow existing route structure in ./server/routes.ts
+- Implement proper error handling and logging
+- Use existing service patterns for external API integrations
+
+## 🧪 Testing Strategy
+- **Write tests first** after thinking through the design
+- **Never write tests that can solve themselves** without calling actual code
+- **Write code only after tests** are written
+- **Always verify code with tests**
+- **For formal testing frameworks**: Use ad-hoc testing only, clean up anything created
+- If test coverage is incomplete, cycle backwards to discover missing designs and inferences
+
+## 🏗️ Code Quality
+- Follow existing TypeScript configuration in tsconfig.json
+- Use ESLint and Prettier for code formatting
+- Use proper TypeScript types throughout the codebase
+- Follow existing documentation patterns in ./docs/
+- Include proper JSDoc comments for functions and classes
+- Update README.md when adding new features or changing setup requirements
+
+## ☁️ AWS & External Services
+- Follow existing lambda function patterns in ./lambdas/
+- Use proper AWS SDK patterns for S3, RDS, and other services
+- Implement proper error handling for external service calls
+- Use environment variables for all sensitive configuration
+# Delula Project Critical Guidelines
