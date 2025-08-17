@@ -1,0 +1,482 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "id": "0006_add_component_registry",
+  "prevId": "0005_add_is_hidden_to_tags",
+  "tables": {
+    "component_registry": {
+      "name": "component_registry",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "component_id": {
+          "name": "component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true,
+          "unique": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "version": {
+          "name": "version",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'1.0.0'"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "tags": {
+          "name": "tags",
+          "type": "text[]",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credit_cost": {
+          "name": "credit_cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "0"
+        },
+        "estimated_processing_time": {
+          "name": "estimated_processing_time",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "true"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_component_registry_component_id": {
+          "name": "idx_component_registry_component_id",
+          "columns": ["component_id"]
+        },
+        "idx_component_registry_category": {
+          "name": "idx_component_registry_category",
+          "columns": ["category"]
+        },
+        "idx_component_registry_is_active": {
+          "name": "idx_component_registry_is_active",
+          "columns": ["is_active"]
+        }
+      },
+      "foreignKeys": {},
+      "uniqueConstraints": {
+        "component_registry_component_id_unique": {
+          "name": "component_registry_component_id_unique",
+          "columns": ["component_id"]
+        }
+      }
+    },
+    "component_input_channels": {
+      "name": "component_input_channels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "component_id": {
+          "name": "component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_id": {
+          "name": "channel_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_name": {
+          "name": "channel_name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_required": {
+          "name": "is_required",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "false"
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "validation_rules": {
+          "name": "validation_rules",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "default_value": {
+          "name": "default_value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_component_input_channels_component_id": {
+          "name": "idx_component_input_channels_component_id",
+          "columns": ["component_id"]
+        },
+        "idx_component_input_channels_position": {
+          "name": "idx_component_input_channels_position",
+          "columns": ["position"]
+        }
+      },
+      "foreignKeys": {
+        "component_input_channels_component_id_component_registry_component_id_fk": {
+          "name": "component_input_channels_component_id_component_registry_component_id_fk",
+          "tableName": "component_registry",
+          "columnName": "component_id",
+          "referencedTableName": "component_registry",
+          "referencedColumnName": "component_id",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "component_input_channels_unique": {
+          "name": "component_input_channels_unique",
+          "columns": ["component_id", "channel_id"]
+        }
+      }
+    },
+    "component_output_channels": {
+      "name": "component_output_channels",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "component_id": {
+          "name": "component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_id": {
+          "name": "channel_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "channel_name": {
+          "name": "channel_name",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_component_output_channels_component_id": {
+          "name": "idx_component_output_channels_component_id",
+          "columns": ["component_id"]
+        }
+      },
+      "foreignKeys": {
+        "component_output_channels_component_id_component_registry_component_id_fk": {
+          "name": "component_output_channels_component_id_component_registry_component_id_fk",
+          "tableName": "component_registry",
+          "columnName": "component_id",
+          "referencedTableName": "component_registry",
+          "referencedColumnName": "component_id",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {
+        "component_output_channels_unique": {
+          "name": "component_output_channels_unique",
+          "columns": ["component_id", "channel_id"]
+        }
+      }
+    },
+    "component_usage": {
+      "name": "component_usage",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "component_id": {
+          "name": "component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "execution_id": {
+          "name": "execution_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "input_data": {
+          "name": "input_data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "output_data": {
+          "name": "output_data",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "processing_time_ms": {
+          "name": "processing_time_ms",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "credit_cost": {
+          "name": "credit_cost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "success": {
+          "name": "success",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "error_message": {
+          "name": "error_message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_component_usage_component_id": {
+          "name": "idx_component_usage_component_id",
+          "columns": ["component_id"]
+        },
+        "idx_component_usage_user_id": {
+          "name": "idx_component_usage_user_id",
+          "columns": ["user_id"]
+        },
+        "idx_component_usage_execution_id": {
+          "name": "idx_component_usage_execution_id",
+          "columns": ["execution_id"]
+        },
+        "idx_component_usage_created_at": {
+          "name": "idx_component_usage_created_at",
+          "columns": ["created_at"]
+        },
+        "idx_component_usage_success": {
+          "name": "idx_component_usage_success",
+          "columns": ["success"]
+        }
+      },
+      "foreignKeys": {
+        "component_usage_component_id_component_registry_component_id_fk": {
+          "name": "component_usage_component_id_component_registry_component_id_fk",
+          "tableName": "component_registry",
+          "columnName": "component_id",
+          "referencedTableName": "component_registry",
+          "referencedColumnName": "component_id",
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "component_usage_user_id_users_id_fk": {
+          "name": "component_usage_user_id_users_id_fk",
+          "tableName": "users",
+          "columnName": "user_id",
+          "referencedTableName": "users",
+          "referencedColumnName": "id",
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {}
+    },
+    "component_dependencies": {
+      "name": "component_dependencies",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "component_id": {
+          "name": "component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "depends_on_component_id": {
+          "name": "depends_on_component_id",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "dependency_type": {
+          "name": "dependency_type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "idx_component_dependencies_component_id": {
+          "name": "idx_component_dependencies_component_id",
+          "columns": ["component_id"]
+        },
+        "idx_component_dependencies_depends_on": {
+          "name": "idx_component_dependencies_depends_on",
+          "columns": ["depends_on_component_id"]
+        }
+      },
+      "foreignKeys": {
+        "component_dependencies_component_id_component_registry_component_id_fk": {
+          "name": "component_dependencies_component_id_component_registry_component_id_fk",
+          "tableName": "component_registry",
+          "columnName": "component_id",
+          "referencedTableName": "component_registry",
+          "referencedColumnName": "component_id",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "component_dependencies_depends_on_component_id_component_registry_component_id_fk": {
+          "name": "component_dependencies_depends_on_component_id_component_registry_component_id_fk",
+          "tableName": "component_registry",
+          "columnName": "depends_on_component_id",
+          "referencedTableName": "component_registry",
+          "referencedColumnName": "component_id",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "uniqueConstraints": {}
+    }
+  }
+}

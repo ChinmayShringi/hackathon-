@@ -1,0 +1,55 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0000_illegal_cardiac",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0001_add_recipe_usage_options",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0002_add_update_recipe_options_summary_function",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0003_add_get_recipe_options_unsummarized_recipe_ids_function",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0004_add_update_recipe_options_summaries_function",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0005_add_is_hidden_to_tags",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1752471054779,
+      "tag": "0006_add_component_registry",
+      "breakpoints": true
+    }
+  ]
+}
