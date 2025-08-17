@@ -1,0 +1,36 @@
+name: Deploy to AWS EC2
+
+on:
+  push:
+    branches: [ test-aws-deployment ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Write SSH key from secret
+        run: |
+          echo "${{ secrets.DELULA_ALPHA_EC2 }}" > delula-alpha-key.pem
+          chmod 600 delula-alpha-key.pem
+
+      - name: Deploy to EC2
+        run: |
+          ssh -i delula-alpha-key.pem -o StrictHostKeyChecking=no ubuntu@delu.la '
+            sudo -u app bash -c "
+              source ~/.bashrc || true;
+              source ~/.nvm/nvm.sh || true;
+              cd /home/app/app &&
+              git fetch origin test-aws-deployment &&
+              git reset --hard origin/test-aws-deployment &&
+              nvm use 22.12 &&
+              npm ci &&
+              npm run build &&
+              (pm2 reload delula-app || pm2 restart delula-app) &&
+              pm2 status
+            "
+          '

@@ -1,0 +1,56 @@
+# Delula Project Cursor Rules
+
+## Node.js Version Management
+- Always require Node.js version >= 22.12 in all project documentation and requirements
+- Use nvm to manage Node versions: `nvm list` to see available versions, `nvm use 22.12` to switch
+- Always stop the current server before switching Node versions, then restart after switching
+- Add this workflow as a cursor rule for consistent Node version management
+
+## Environment and Scripts
+- Load environment variables from the root .env file using the dotenv package before any other imports
+- Assume DATABASE_URL is available via .env automatically, so no manual shell setting is needed
+- Place all script files as TSX (.tsx) in the ./scripts directory rather than as shell scripts
+- Always write scripts in TypeScript and run them using the tsx package
+
+## Database and Development
+- Use Drizzle ORM for database operations
+- Follow the existing migration patterns in ./migrations/
+- Use the shared schema definitions from ./shared/schema.ts
+- Implement proper error handling for database connections and queries
+
+## Frontend Development
+- Use React with TypeScript for all frontend components
+- Follow the existing component structure in ./client/src/components/
+- Use the UI components from ./client/src/components/ui/ for consistency
+- Implement proper TypeScript types for all props and state
+
+## Backend Development
+- Use Express.js with TypeScript for the server
+- Follow the existing route structure in ./server/routes.ts
+- Implement proper error handling and logging
+- Use the existing service patterns for external API integrations
+
+## Testing
+- Write tests first after thinking through the design
+- Never write tests that can solve themselves without calling actual code
+- Write code only after tests are written
+- Always verify code with tests
+- If test coverage is incomplete, cycle backwards to discover missing designs and inferences
+
+## Code Quality
+- Follow the existing TypeScript configuration in tsconfig.json
+- Use ESLint and Prettier for code formatting
+- Implement proper error boundaries in React components
+- Use proper TypeScript types throughout the codebase
+
+## AWS and External Services
+- Follow the existing lambda function patterns in ./lambdas/
+- Use proper AWS SDK patterns for S3, RDS, and other services
+- Implement proper error handling for external service calls
+- Use environment variables for all sensitive configuration
+
+## Documentation
+- Update relevant documentation when making significant changes
+- Follow the existing documentation patterns in ./docs/
+- Include proper JSDoc comments for functions and classes
+- Update README.md when adding new features or changing setup requirements 
