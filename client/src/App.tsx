@@ -36,25 +36,12 @@ function AppRoutes() {
         <Switch>
           <Route path="/" component={AlphaHome} />
           <Route path="/alpha" component={AlphaHome} />
-          <Route path="/alpha/my-makes" component={AlphaMyMakes} />
-          <Route path="/alpha/m/:shortId" component={AlphaAssetViewer} />
           <Route path="/alpha/credits" component={AlphaCredits} />
           <Route path="/alpha/account" component={Account} />
           <Route path="/alpha/payment/success" component={PaymentSuccess} />
-          <Route path="/alpha/thumbnail-test" component={ThumbnailTest} />
-          <Route path="/alpha/kling-test" component={KlingTest} />
 
           {/* Admin routes - available in alpha mode */}
           <Route path="/admin/login" component={AdminLogin} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/admin/recipe-tag-icons" component={AdminRecipeTagIcons} />
-          <Route path="/admin/backlog-maintenance" component={AdminBacklogMaintenance} />
-
-          {/* Media Library available in alpha site */}
-          <Route path="/library" component={MediaLibrary} />
-          
-          {/* Upload Demo available in alpha site */}
-          <Route path="/upload-demo" component={UploadDemoPage} />
 
           <Route>
             <div className="min-h-screen bg-bg-primary flex items-center justify-center">
@@ -78,25 +65,13 @@ function AppRoutes() {
       <Route path="/" component={Landing} />
       <Route path="/home" component={Home} />
       <Route path="/dashboard" component={Dashboard} />
-      <Route path="/my-gallery" component={MyGallery} />
-      <Route path="/queue" component={Queue} />
-      {/* <Route path="/profile" component={Profile} /> */}
       <Route path="/account" component={Account} />
-      <Route path="/create-recipe" component={CreateRecipe} />
-      <Route path="/gallery" component={Gallery} />
-      <Route path="/library" component={MediaLibrary} />
-      <Route path="/tutorials" component={Tutorials} />
-      <Route path="/recipe/:slug" component={RecipeDetail} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
-      <Route path="/asset-viewer/:id" component={AssetViewer} />
-      <Route path="/kling-test" component={KlingTest} />
+      <Route path="/payment-success" component={PaymentSuccess} />
 
       {/* Admin routes */}
       <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin" component={Admin} />
-      <Route path="/admin/recipe-tag-icons" component={AdminRecipeTagIcons} />
-      <Route path="/admin/backlog-maintenance" component={AdminBacklogMaintenance} />
 
       <Route component={NotFound} />
     </Switch>
@@ -110,8 +85,7 @@ function App() {
 
   // Use React Router's location hook to get current path
   const [location] = useLocation();
-  const isMyMakesPage = location.includes('/alpha/my-makes');
-  const isAssetViewerPage = location.includes('/alpha/m/');
+  const isAlphaPage = location.includes('/alpha');
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -119,16 +93,8 @@ function App() {
         <div className="min-h-screen text-white font-inter relative">
           {/* Background Layers */}
           <div className="site-background"></div>
-          <div className={
-            isAlphaSite && isMyMakesPage ? "tiled-background-purple" :
-              isAlphaSite && isAssetViewerPage ? "tiled-background-green" :
-                "tiled-background"
-          }></div>
-          <div className={
-            isAlphaSite && isMyMakesPage ? "gradient-overlay-purple" :
-              isAlphaSite && isAssetViewerPage ? "gradient-overlay-green" :
-                "gradient-overlay"
-          }></div>
+          <div className="tiled-background"></div>
+          <div className="gradient-overlay"></div>
 
           {/* Content Layer */}
           <div className="relative z-10">
