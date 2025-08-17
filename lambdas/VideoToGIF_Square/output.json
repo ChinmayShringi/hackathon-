@@ -1,1 +1,0 @@
-{"statusCode":200,"body":"{\"success\":true,\"message\":\"Video converted to GIF and uploaded successfully\",\"s3Location\":\"s3://delula-media-prod/test/test-smooth.gif\",\"dimension\":\"128x128\",\"compression\":{\"originalSize\":6422298,\"compressedSize\":96016,\"ratio\":\"98.5%\"},\"processing\":{\"time\":\"1992ms\",\"timestamp\":\"2025-07-12T14:57:17.812Z\"}}"}
